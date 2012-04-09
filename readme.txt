@@ -32,9 +32,19 @@ Category Pie uses the Google Chart API. Google ensures that all code and data ar
 
 == Changelog ==
 
+= 0.2 =
+
+Code optimization. Support for taxonomy term names containing single or double quotes.
+
 = 0.1 =
 
 Initial release
+
+== Upgrade Notice ==
+
+= 0.2 =
+
+Code optimization. Support for taxonomy term names containing single or double quotes.
 
 == Other Notes ==
 
