@@ -4,7 +4,7 @@ Donate link: http://peterherrel.com/donate/
 Tags: category, tags, taxonomy, chart, stats, google, google chart, fun
 Requires at least: 3.1
 Tested up to: 3.3.1
-Stable tag: 0.1
+Stable tag: 0.2
 License: GPLv2
 
 The Category Pie plugin for WordPress adds a bit of extra flavor to those otherwise boring category administration pages.
@@ -32,9 +32,19 @@ Category Pie uses the Google Chart API. Google ensures that all code and data ar
 
 == Changelog ==
 
+= 0.2 =
+
+Code optimization. Support for taxonomy term names containing single or double quotes.
+
 = 0.1 =
 
 Initial release
+
+== Upgrade Notice ==
+
+= 0.2 =
+
+Code optimization. Support for taxonomy term names containing single or double quotes.
 
 == Other Notes ==
 

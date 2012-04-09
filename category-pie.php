@@ -3,7 +3,7 @@
 Plugin Name: Category Pie
 Plugin URI: http://peterherrel.com/wordpress/plugins/category-pie/
 Description: The Category Pie plugin for WordPress adds a bit of extra flavor to those otherwise boring category administration pages. It's called Category Pie, but it works for tags and custom taxonomies too!
-Version: 0.1
+Version: 0.2
 Author: donutz
 Author URI: http://peterherrel.com/
 License: GPL2
@@ -27,17 +27,11 @@ Domain Path: /lang
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
- * Changelog
- * v 0.1
- * Initial release
- */
-
 new Category_Pie;
 
 class Category_Pie
 {	
-	var $version = '0.1';
+	var $version = '0.2';
 	var $plugin_dir_url = '';
 
 	function Category_Pie()
@@ -46,7 +40,7 @@ class Category_Pie
 	}	 
 	function __construct()
 	{
-		$this->plugin_dir_url = trailingslashit(plugins_url(dirname(plugin_basename(__FILE__))));
+		$this->plugin_dir_url = trailingslashit( plugins_url( dirname( plugin_basename( __FILE__ ) ) ) );
 
 		new Category_Pie_Options;
 	    
@@ -65,17 +59,13 @@ class Category_Pie
 	}
 	public function add_html()
 	{
-		global $wp_taxonomies;
-		foreach( $wp_taxonomies as $taxonomy => $tax_data )
-		{
-			$action = $taxonomy . '_pre_add_form';	    	
-			add_action( $action, array( &$this, 'html' ), 10, 3 );
-		}
+		global $taxnow;  	
+		add_action( $taxnow . '_pre_add_form', array( &$this, 'html' ) );
 	}
 	public function html( $taxonomy ) 
 	{
 		$tax = get_taxonomy( $taxonomy );
-		if( $tax->hierarchical != '1') : 
+		if( ! is_taxonomy_hierarchical( $taxonomy ) ) : 
 			$title = '<h3>'.$tax->labels->name.' ' . __( 'Top Ten', 'pjh_cat_pie' ) . '</h3>';
 		else : 
 			$title = '<h3>'.$tax->labels->name.'</h3>';
@@ -89,50 +79,39 @@ class Category_Pie
 	{
 		$t = __( 'Term', 'pjh_cat_pie' );
 		$c = __( 'Count', 'pjh_cat_pie' );
-		?>	
-			<!--Load the AJAX API-->
-			<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-			<script type="text/javascript">
-				/* <![CDATA[ */
-				google.load('visualization', '1.0', {'packages':['corechart']});
-				google.setOnLoadCallback(drawChart);
-				function drawChart() {
-					var data = new google.visualization.DataTable();
-					data.addColumn('string', '<?php echo $t; ?>');
-					data.addColumn('number', '<?php echo $c; ?>');
-					data.addRows([
-						<?php 
-							global $taxonomy;
-							$tax = get_taxonomy( $taxonomy );
-							$tax_terms = get_terms( $taxonomy, 'orderby=count&order=DESC&hide_empty=1' );
-							if( $tax->hierarchical != '1') $tax_terms = array_slice( get_terms( $taxonomy, 'orderby=count&order=DESC&hide_empty=1' ), 0, 10 );
-							foreach( $tax_terms as $array => $data )
-							{	    					
-								$name = esc_attr( $data->name );
-								$count = $data->count;
-								?>
-									['<?php echo $name; ?> (<?php echo $count; ?>)', <?php echo $count; ?>],			
-								<?php
-							}
-						?>
-					]);
-					var options = {'title':'',
-						'width':'100%',
-						'height':'auto',
-						'chartArea':{left:10,top:0,width:'90%',height:'90%'},
-						'tooltip':{showColorCode:true,text:'percentage',trigger:'hover'},
-						'is3D':true
-					};
-					var chart = new google.visualization.PieChart(document.getElementById('cat-pie-admin-inside'));
-					chart.draw(data, options);
-				}
-				/* ]]> */
-			</script>
-			<style type="text/css">
-				#cat-pie-admin, #cat-pie-admin-inside {width: 100%;display:block;clear:both;background-image:none;background-color:transparent;margin:0px 0px;padding:0px 0px;}
-			</style>
-		<?php
-	}
+?>	
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">/* <![CDATA[ */
+google.load('visualization', '1.0', {'packages':['corechart']});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+	var data = new google.visualization.DataTable();
+	data.addColumn('string', '<?php echo $t; ?>');
+	data.addColumn('number', '<?php echo $c; ?>');
+	data.addRows([<?php global $taxonomy;
+		$tax = get_taxonomy( $taxonomy );
+		$tax_terms = get_terms( $taxonomy, 'orderby=count&order=DESC&hide_empty=1' );
+		if( ! is_taxonomy_hierarchical( $taxonomy ) ) $tax_terms = array_slice( get_terms( $taxonomy, 'orderby=count&order=DESC&hide_empty=1' ), 0, 10 );
+		foreach( $tax_terms as $array => $data ) {	    					
+			$name = addslashes( $data->name );
+			$count = $data->count; ?>['<?php echo $name; ?> (<?php echo $count; ?>)', <?php echo $count; ?>],<?php } ?>]);
+	var options = {'title':'',
+		'width':'100%',
+		'height':'auto',
+		'chartArea':{left:10,top:0,width:'90%',height:'90%'},
+		'tooltip':{showColorCode:true,text:'percentage',trigger:'hover'},
+		'is3D':true
+	};
+	var chart = new google.visualization.PieChart(document.getElementById('cat-pie-admin-inside'));
+	chart.draw(data, options);
+}
+/* ]]> */
+</script>
+<style type="text/css">
+#cat-pie-admin, #cat-pie-admin-inside {width: 100%;display:block;clear:both;background-image:none;background-color:transparent;margin:0px 0px;padding:0px 0px;}
+</style>
+<?php }
 }
 class Category_Pie_Options
 {
