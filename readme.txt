@@ -1,17 +1,17 @@
 === Category Pie ===
 Contributors: donutz
 Donate link: http://peterherrel.com/donate/
-Tags: category, tags, taxonomy, chart, stats, google, google chart, fun
-Requires at least: 3.1
-Tested up to: 3.5.1
-Stable tag: 0.2
-License: GPLv2
+Tags: category, tags, taxonomy, chart, stats, data visualization, google, google chart, fun
+Requires at least: 3.6
+Tested up to: 4.0
+Stable tag: 1.0
+License: GPLv3
 
 The Category Pie plugin for WordPress adds a bit of extra flavor to those otherwise boring category administration pages.
 
 == Description ==
 
-The Category Pie plugin for WordPress adds a 3D pie chart to the administration pages for categories, tags and custom taxonomies. For non-hierarchical taxonomies like post tags only the top 10 is displayed.
+The Category Pie plugin for WordPress adds a pie chart to the administration pages for categories, tags and custom taxonomies. For non-hierarchical taxonomies like post tags the top 10 is displayed.
 
 == Installation ==
 
@@ -32,30 +32,48 @@ Category Pie uses the Google Chart API. Google ensures that all code and data ar
 
 == Changelog ==
 
+= 1.0 =
+
+* Code overhaul
+* Change text domain string to category_pie
+* Introduce category_pie_taxnow_hook filter
+* Introduce category_pie_datarows filter
+* Introduce category_pie_chart_options filter
+* requires WP 3.6
+* Include and update license to GPL3
+
 = 0.2 =
 
-Code optimization. Support for taxonomy term names containing single or double quotes.
+* Code optimization.
 
 = 0.1 =
 
-Initial release
+* Initial release
 
 == Upgrade Notice ==
 
-= 0.2 =
+= 1.0 =
 
-Code optimization. Support for taxonomy term names containing single or double quotes.
+Visit the plugin changelog on wordpress.org to find out what's new
 
 == Other Notes ==
 
 = License =
 
-The Category Pie plugin for WordPress is released under GPLv2, you can use it free of charge on your personal or commercial website.
+The Category Pie plugin for WordPress is released under GPLv3, you can use it free of charge on your personal or commercial website.
+
+= Documentation =
+
+Visit the [plugin wiki](https://github.com/diggy/Category-Pie/wiki "plugin wiki") on Github.
 
 = Support =
 
-Visit the [plugin homepage](http://peterherrel.com/wordpress/plugins/category-pie/ "plugin homepage") or find support at the [WordPress international forums](http://wordpress.org/support/forum/plugins-and-hacks/ "WordPress international forums").
+Find support at the [WordPress support forums](http://wordpress.org/support/plugin/category-pie "WordPress support forums").
+
+= Contribute =
+
+Check out the source code on [Github](https://github.com/diggy/Category-Pie "Github").
 
 = Donate =
 
-If you like the Category Pie plugin, please consider making a [donation](http://peterherrel.com/donate/ "donation"). Thanks!
+If you enjoy the Category Pie plugin, please consider making a small [donation](http://peterherrel.com/donate/ "donation"). Thanks!
