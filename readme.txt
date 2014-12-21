@@ -3,7 +3,7 @@ Contributors: donutz
 Donate link: http://peterherrel.com/donate/
 Tags: category, tags, taxonomy, chart, stats, data visualization, google, google chart, fun
 Requires at least: 3.6
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 1.0
 License: GPLv3
 
